@@ -1,6 +1,7 @@
-## 操作指南
+# 操作指南
 
 ### 1.将```workflow.json```文件拖入ComfyUI工作区
+[workflow.json](workflow.json)
 
 ### 2.安装相关的custom_nodes节点
 - ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus
