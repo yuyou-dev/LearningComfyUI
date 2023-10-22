@@ -18,7 +18,7 @@ ComfyUI是一个基于stablediffusion的webui，让用户可以通过编辑工�
 
 ### Example1
 
-![Example1 Screenshot](./workflows/example1/screenshot.png)
+![Example1 Screenshot](./workflows/multi-img2vid/screenshot.png)
 
 [查看详情和操作说明](./workflows/example1/description.md)
 
