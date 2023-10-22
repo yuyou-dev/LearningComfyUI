@@ -16,13 +16,13 @@ ComfyUI是一个基于stablediffusion的webui，让用户可以通过编辑工�
 
 ## 示例
 
-### Example1
+### AnimateDiff多图引导 / Multi img2vid
 
-![Example1 Screenshot](./workflows/multi-img2vid/screenshot.png)
+![multi-img2vid](./workflows/multi-img2vid/screenshot.png)
 
-[查看详情和操作说明](./workflows/example1/description.md)
+[查看详情和操作说明](./workflows/multi-img2vid/description.md)
 
-### Example2
+### AnimateDiff + IP-Adapter 长视频风格迁移 / Long video create using IP-Adapter
 
 ... （更多示例）
 
