@@ -1,0 +1,880 @@
+{
+  "last_node_id": 83,
+  "last_link_id": 185,
+  "nodes": [
+    {
+      "id": 45,
+      "type": "VAELoader",
+      "pos": [
+        1320,
+        1510
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            52
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "vae-ft-mse-840000-ema-pruned.safetensors"
+      ]
+    },
+    {
+      "id": 72,
+      "type": "ADE_AnimateDiffUniformContextOptions",
+      "pos": [
+        1330,
+        1000
+      ],
+      "size": {
+        "0": 310.5161437988281,
+        "1": 155.268798828125
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "CONTEXT_OPTIONS",
+          "type": "CONTEXT_OPTIONS",
+          "links": [
+            97
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ADE_AnimateDiffUniformContextOptions"
+      },
+      "widgets_values": [
+        16,
+        1,
+        4,
+        "uniform",
+        false
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        750,
+        1460
+      ],
+      "size": {
+        "0": 531.814453125,
+        "1": 76
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 105,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            175
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "(bad quality, worst quality:1.2), NSFW, nude, noisy, blurry, deformed, black and white, bad anatomy, Deformed, bad eyes, crossed eyes, disfigured, poorly drawn face, mutation, ((extra limb)), ugly, poorly drawn hands, missing limb, floating limbs, disconnected limbs, malformed hands, out of focus, long neck, long body, ((((mutated hands and fingers)))), (((out of frame))), cropped, low-res, ugly, too many fingers, grainy, extra limbs, extra fingers, mutated hands, bad proportions, blind, ugly eyes, text, writing, logo"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 44,
+      "type": "VAEDecode",
+      "pos": [
+        1670,
+        1090
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 102
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 52,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            53,
+            122
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 71,
+      "type": "KSampler",
+      "pos": [
+        1330,
+        1200
+      ],
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 144
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 174
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 175
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 103
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            102
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        221288054852388,
+        "randomize",
+        30,
+        6,
+        "dpmpp_2m_sde",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 47,
+      "type": "AnimateDiffCombine",
+      "pos": [
+        1660,
+        460
+      ],
+      "size": {
+        "0": 315,
+        "1": 402
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 53
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AnimateDiffCombine"
+      },
+      "widgets_values": [
+        24,
+        0,
+        true,
+        "animate_diff",
+        "video/h264-mp4",
+        true
+      ]
+    },
+    {
+      "id": 80,
+      "type": "IPAdapterModelLoader",
+      "pos": [
+        857.5358222656253,
+        378.60798559570304
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IPADAPTER",
+          "type": "IPADAPTER",
+          "links": [
+            139
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterModelLoader"
+      },
+      "widgets_values": [
+        "ip-adapter_sd15.bin"
+      ]
+    },
+    {
+      "id": 81,
+      "type": "CLIPVisionLoader",
+      "pos": [
+        858.5358222656253,
+        478.60798559570304
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "links": [
+            140
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionLoader"
+      },
+      "widgets_values": [
+        "SD1.5/pytorch_model.bin"
+      ]
+    },
+    {
+      "id": 79,
+      "type": "IPAdapterApply",
+      "pos": [
+        1282.5358222656243,
+        736.6079855957031
+      ],
+      "size": {
+        "0": 315,
+        "1": 142
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 139,
+          "slot_index": 0
+        },
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 140,
+          "slot_index": 1
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 141,
+          "slot_index": 2
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 183
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            184
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterApply"
+      },
+      "widgets_values": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": 78,
+      "type": "SaveImage",
+      "pos": [
+        2000,
+        470
+      ],
+      "size": {
+        "0": 315,
+        "1": 270
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 122
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "images/car"
+      ]
+    },
+    {
+      "id": 68,
+      "type": "ADE_AnimateDiffLoaderWithContext",
+      "pos": [
+        1660,
+        920
+      ],
+      "size": {
+        "0": 315,
+        "1": 122
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 184,
+          "slot_index": 0
+        },
+        {
+          "name": "context_options",
+          "type": "CONTEXT_OPTIONS",
+          "link": 97,
+          "slot_index": 1
+        },
+        {
+          "name": "motion_lora",
+          "type": "MOTION_LORA",
+          "link": 185,
+          "slot_index": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            144
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ADE_AnimateDiffLoaderWithContext"
+      },
+      "widgets_values": [
+        "mm_sd_v15_v2.ckpt",
+        "sqrt_linear (AnimateDiff)"
+      ]
+    },
+    {
+      "id": 75,
+      "type": "CheckpointLoaderSimpleWithNoiseSelect",
+      "pos": [
+        360,
+        920
+      ],
+      "size": {
+        "0": 319.20001220703125,
+        "1": 122
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            183
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            104,
+            105
+          ],
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimpleWithNoiseSelect"
+      },
+      "widgets_values": [
+        "dreamshaper_8.safetensors",
+        "sqrt_linear (AnimateDiff)"
+      ]
+    },
+    {
+      "id": 83,
+      "type": "ADE_AnimateDiffLoRALoader",
+      "pos": [
+        678,
+        987
+      ],
+      "size": {
+        "0": 355.20001220703125,
+        "1": 82
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prev_motion_lora",
+          "type": "MOTION_LORA",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MOTION_LORA",
+          "type": "MOTION_LORA",
+          "links": [
+            185
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ADE_AnimateDiffLoRALoader"
+      },
+      "widgets_values": [
+        "v2_lora_ZoomIn.ckpt",
+        1
+      ]
+    },
+    {
+      "id": 73,
+      "type": "ADE_EmptyLatentImageLarge",
+      "pos": [
+        990,
+        990
+      ],
+      "size": {
+        "0": 310.79998779296875,
+        "1": 89.03490447998047
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "link": 107,
+          "widget": {
+            "name": "batch_size"
+          },
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            103
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ADE_EmptyLatentImageLarge"
+      },
+      "widgets_values": [
+        768,
+        512,
+        96
+      ]
+    },
+    {
+      "id": 76,
+      "type": "PrimitiveNode",
+      "pos": [
+        460,
+        1090
+      ],
+      "size": {
+        "0": 210,
+        "1": 82
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            107,
+            108
+          ],
+          "slot_index": 0,
+          "widget": {
+            "name": "batch_size"
+          }
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        96,
+        "fixed"
+      ]
+    },
+    {
+      "id": 66,
+      "type": "BatchPromptSchedule",
+      "pos": [
+        750,
+        1130
+      ],
+      "size": {
+        "0": 539.2039184570312,
+        "1": 279.5392761230469
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 104,
+          "slot_index": 0
+        },
+        {
+          "name": "max_frames",
+          "type": "INT",
+          "link": 108,
+          "widget": {
+            "name": "max_frames"
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            174
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BatchPromptSchedule"
+      },
+      "widgets_values": [
+        "\"0\" :\"cool city\",\n\"25\" :\"Tokyo streets, moving\",\n\"50\" :\"new york streets, moving\",\n\"75\" :\"Hong Kong streets\"",
+        96,
+        "Mondrian with a cyberpunk",
+        "natural bright lighting, sharp, highly detailed, ultra hyperrealistic, 4k, vibrant",
+        0,
+        0,
+        0,
+        0
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 82,
+      "type": "LoadImage",
+      "pos": [
+        857.5358222656253,
+        579.6079855957031
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            141
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "DALL·E 2023-10-23 00.22.32 - Render showcasing a cyberpunk plaza inspired by Mondrian. The ground is a mosaic of large geometric shapes in red, blue, and yellow. Surrounding build.png",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      52,
+      45,
+      0,
+      44,
+      1,
+      "VAE"
+    ],
+    [
+      53,
+      44,
+      0,
+      47,
+      0,
+      "IMAGE"
+    ],
+    [
+      97,
+      72,
+      0,
+      68,
+      1,
+      "CONTEXT_OPTIONS"
+    ],
+    [
+      102,
+      71,
+      0,
+      44,
+      0,
+      "LATENT"
+    ],
+    [
+      103,
+      73,
+      0,
+      71,
+      3,
+      "LATENT"
+    ],
+    [
+      104,
+      75,
+      1,
+      66,
+      0,
+      "CLIP"
+    ],
+    [
+      105,
+      75,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      107,
+      76,
+      0,
+      73,
+      0,
+      "INT"
+    ],
+    [
+      108,
+      76,
+      0,
+      66,
+      1,
+      "INT"
+    ],
+    [
+      122,
+      44,
+      0,
+      78,
+      0,
+      "IMAGE"
+    ],
+    [
+      139,
+      80,
+      0,
+      79,
+      0,
+      "IPADAPTER"
+    ],
+    [
+      140,
+      81,
+      0,
+      79,
+      1,
+      "CLIP_VISION"
+    ],
+    [
+      141,
+      82,
+      0,
+      79,
+      2,
+      "IMAGE"
+    ],
+    [
+      144,
+      68,
+      0,
+      71,
+      0,
+      "MODEL"
+    ],
+    [
+      174,
+      66,
+      0,
+      71,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      175,
+      7,
+      0,
+      71,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      183,
+      75,
+      0,
+      79,
+      3,
+      "MODEL"
+    ],
+    [
+      184,
+      79,
+      0,
+      68,
+      0,
+      "MODEL"
+    ],
+    [
+      185,
+      83,
+      0,
+      68,
+      2,
+      "MOTION_LORA"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "IP-Adapter组",
+      "bounding": [
+        820,
+        294,
+        810,
+        623
+      ],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
